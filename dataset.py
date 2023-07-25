@@ -42,7 +42,7 @@ class LungDataset(torch.utils.data.Dataset):
         file_path = self.all_files[idx]
         mask_path = self.images_to_labels(file_path)
         slice = np.load(file_path).astype(np.float32) 
-        mask = np.load(mask_path).astype(np.float32)
+        mask = np.load(mask_path).astype(np.int32)
 
         if self.aug:
             slice, mask = self.augment(slice, mask)

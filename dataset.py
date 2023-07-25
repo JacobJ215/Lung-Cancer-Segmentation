@@ -24,7 +24,7 @@ class LungDataset(torch.utils.data.Dataset):
     @staticmethod
     def images_to_labels(path):
         parts = list(path.parts)
-        parts[parts.index("data")] = "mask"
+        parts[parts.index("data")] = "masks"
         return Path(*parts)
 
     def augment(self, slice, mask):
@@ -42,7 +42,7 @@ class LungDataset(torch.utils.data.Dataset):
         file_path = self.all_files[idx]
         mask_path = self.images_to_labels(file_path)
         slice = np.load(file_path).astype(np.float32) 
-        mask = np.load(mask_path)
+        mask = np.load(mask_path).astype(np.float32)
 
         if self.aug:
             slice, mask = self.augment(slice, mask)
